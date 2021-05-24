@@ -33,6 +33,6 @@ module doorbell(
 
 
     //Todo: define your logic here                 
-	assign #5 out = sel ? b : a  ;    
+	assign #5 out = sel ? b : a  ;    // 5 tick delay, if select == 1, output b, else output a. 
 	
 endmodule
