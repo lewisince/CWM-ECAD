@@ -39,11 +39,14 @@ always @(posedge clk) begin
 	if (rst) begin
 		counter_out <= 0;
 	end
-	if (change == 0)
+	if (change == 0) begin
 		counter_out <= counter_out;
-	if (change && on_off)
+	end 
+	if (change && on_off) begin
 		counter_out <= counter_out + 1'b1;
-  	else
-		counter_out <= counter_out - 1'b1;		
-    end
+	end
+  	else begin
+		counter_out <= counter_out - 1'b1;
+	end 		
+end
 endmodule
