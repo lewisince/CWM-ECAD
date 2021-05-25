@@ -36,9 +36,6 @@ module top_tb(
 
 //Todo: User logic
 
-// initialise values, set counter to high, then reset instantly, expect counter to return to 0
-// then step through change, on_off of ab to go through both up and down counter.
-
 initial begin
 		rst = 1;
 		change = 0;
@@ -76,11 +73,10 @@ end
 
 	
     initial begin
+	#(200*CLK_PERIOD)
 	   if (err==1) begin
 		$display("***TEST FAILED - Counter Value =%d, ***", counter_out);
 	   end
-    end
-    initial begin
 	   if (err==0) begin
 		$display("***TEST PASSED! ***");
 	   end
