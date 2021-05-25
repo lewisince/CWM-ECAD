@@ -64,12 +64,13 @@ initial begin
 			$display("***TEST FAILED - rst==0, change==1, expected=%d counter_out =%d, ***", local_counter,counter_out);
 			err=1;
 		end
-	if (local_counter==5) begin
+	   if (local_counter==5) begin
 		on_off=~on_off;
-	end
-	if (local_counter==0) begin
+	   end
+	   if (local_counter==0) begin
 		on_off=~on_off;
-	end
+	   end
+    end
 end
 //Finish test, check for success
 
