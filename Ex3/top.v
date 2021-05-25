@@ -39,10 +39,10 @@ always @(posedge clk) begin
 	if (rst) begin
 		counter_out <= #1 8'b00000000; 
 	end
-	if (change == 0) begin
+	else if (change == 0) begin
 		counter_out <= #1 counter_out;
 	end 
-	if (change && on_off) begin
+	else if (change && on_off) begin
 		counter_out <= #1 counter_out + 8'b00000001;
 	end
   	else begin
