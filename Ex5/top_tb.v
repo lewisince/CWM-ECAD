@@ -61,7 +61,8 @@ forever begin
 			$display("***TEST FAILED, both states on together");
 			err=1;
 		end
-
+		
+		// force temp to change to analyse rising temp and falling temp
 	    else if (temperature==5'b11100) begin // temp goes down once reaching 28
 		deltatemp=~deltatemp;
 	    end
