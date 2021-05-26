@@ -76,12 +76,11 @@ initial begin
 		end
 
         localcolour = colour;
-	   #(CLK_PERIOD)
 	   button = 0;
 	   
 	   #(CLK_PERIOD)
 			if (colour != localcolour) begin
-				$display("***TEST FAILED - rst==0, button==1,colour =%d, ***", colour);
+				$display("***TEST FAILED - rst==0, button==0,colour =%d, localcolour=%d.***", colour, localcolour);
 				err=1;
 			end	
 	end
