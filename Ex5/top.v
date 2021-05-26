@@ -33,26 +33,27 @@ module monitor (
 // 
 always @(posedge clk) begin
 	if (heating == 1 && temperature >= 5'd20) begin // heating states
-		heating <= 0
+		heating <= 0;
 	end
 	else if (heating == 1 && temperature < 5'd20) begin
-		heating <= heating
+		heating <= 1;
 	end	
 	else if (cooling == 1 && temperature > 5'd20) begin // cooling states
-		cooling <= cooling
+		cooling <= 1;
 	end
 	else if (cooling == 1 && temperature <= 5'd20) begin
-		cooling <= 0
+		cooling <= 0;
 	end
 	else if (heating == 0 && cooling == 0 && temperature <= 5'd18) begin // idle states
-		heating <= 1
+		heating <= 1;
 	end	
-	else if (heating == 0 && cooling == 0 && temperature => 5'd22) begin
-		cooling <= 1
+	else if (heating == 0 && cooling == 0 && temperature >= 5'd22) begin
+		cooling <= 1;
 	end
-	else if (heating == 0 && cooling == 0 && temperature < 5'd22 && tempertaure > 5'd18) begin
-		heating <= heating
-		cooling <= cooling
+	else // if (heating == 0 && cooling == 0 && temperature < 5'd22 && temperature > 5'd18) 
+	begin
+		heating <= 0;
+		cooling <= 0;
 	end
 end
       

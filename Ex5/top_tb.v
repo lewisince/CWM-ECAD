@@ -21,7 +21,9 @@ module top_tb(
     reg clk;
     reg [4:0] temperature;
     reg err;
-    reg [4:0] localtemp;
+    reg deltatemp;
+    reg localheat;
+    reg localcool;
     wire heating;
     wire cooling;
 
@@ -37,54 +39,32 @@ module top_tb(
 
 
 initial begin
-		rst = 1;
-		button = 0;
+// initialise values
+		localheat = 0;
+		localcool = 0;
 		err = 0;
-		localcolour = 3'b000;
-	
-
-//checking reset
-	#(CLK_PERIOD)
-	if (colour!=0) begin
-		$display("***TEST FAILED - colour =%d, ***", colour);
-		err=1;
-	end
-	#(CLK_PERIOD)
-	rst = 0;
-	#(CLK_PERIOD) // button = 0 or button = 1 should make colour 000 go to colour 001
-
-	if (colour!=3'b001) begin
-		$display("***TEST FAILED - colour =%d, ***", colour);
-		err=1;
-	end
+		temperature = 5'b10100; //start at T=20
+		deltatemp = 1
 		
-	forever begin
-	button = 1;
-		if (colour != 6 && colour != 7) begin
-		localcolour = colour;
-		#(CLK_PERIOD)
-			if (colour != localcolour+1) begin
-				$display("***TEST FAILED - rst==0, button==1,colour =%d, ***", colour);
-				err=1;
-			end
+//test logic
+forever begin
+	
+	#(CLK_PERIOD)
+		
+		temperature=deltatemp ? temperature+1 : temperature-1;
+		
+		if ((temperature<20 && cooling==1) || (temperature>20 && heating==1)) begin
+			$display("***TEST FAILED, temp = %d, heating =%d,cooling =%d***", temperature,heating,cooling);
+			err=1;
 		end
-		else if (colour == 6) begin
-		localcolour = colour;
-		#(CLK_PERIOD)
-			if (colour != 3'b001) begin
-				$display("***TEST FAILED - rst==0, button==1,colour =%d, ***", colour);
-				err=1;
-			end
-		end
-
-        localcolour = colour;
-	   button = 0;
-	   
-	   #(CLK_PERIOD)
-			if (colour != localcolour) begin
-				$display("***TEST FAILED - rst==0, button==0,colour =%d, localcolour=%d.***", colour, localcolour);
-				err=1;
-			end	
+	    
+	    else if (temperature==5'b11111) begin
+		deltatemp=~deltatemp;
+	    end
+	    
+	    else if (temperature==5'b00000) begin
+		deltatemp=~deltatemp;
+		end		
 	end
 end
 //Finish test, check for success
@@ -92,7 +72,7 @@ end
 	
     initial begin
 	   if (err==1) begin
-		$display("***TEST FAILED - Counter Value =%d, ***", colour);
+			$display("***TEST FAILED, temp = %d, heating =%d,cooling =%d***", temperature,heating,cooling);
 	   end
     end
     initial begin
