@@ -22,8 +22,6 @@ module top_tb(
     reg [4:0] temperature;
     reg err;
     reg deltatemp;
-    reg localheat;
-    reg localcool;
     wire heating;
     wire cooling;
 
@@ -40,11 +38,12 @@ module top_tb(
 
 initial begin
 // initialise values
-		localheat = 0;
-		localcool = 0;
 		err = 0;
 		temperature = 5'b10100; //start at T=20
-		deltatemp = 1
+		//temperature = 5'b11000; //start at T=24
+		//temperature = 5'b10000; //start at T=16
+		//tested 3 cases
+		deltatemp = 1;
 		
 //test logic
 forever begin
@@ -57,12 +56,17 @@ forever begin
 			$display("***TEST FAILED, temp = %d, heating =%d,cooling =%d***", temperature,heating,cooling);
 			err=1;
 		end
-	    
-	    else if (temperature==5'b11111) begin
+
+	    	if (cooling==1 && heating==1) begin
+			$display("***TEST FAILED, both states on together");
+			err=1;
+		end
+
+	    else if (temperature==5'b11100) begin // temp goes down once reaching 28
 		deltatemp=~deltatemp;
 	    end
 	    
-	    else if (temperature==5'b00000) begin
+	    else if (temperature==5'b01000) begin // temp goes back up after reaching 8
 		deltatemp=~deltatemp;
 		end		
 	end

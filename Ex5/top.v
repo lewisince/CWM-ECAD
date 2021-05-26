@@ -38,11 +38,19 @@ always @(posedge clk) begin
 	else if (heating == 1 && temperature < 5'd20) begin
 		heating <= 1;
 	end	
+	else if (temperature <= 5'd18) begin // start case
+		heating <= 1;
+		cooling <= 0;
+	end
 	else if (cooling == 1 && temperature > 5'd20) begin // cooling states
 		cooling <= 1;
 	end
 	else if (cooling == 1 && temperature <= 5'd20) begin
 		cooling <= 0;
+	end
+	else if (temperature >= 5'd22) begin // start case
+		heating <= 0;
+		cooling <= 1;
 	end
 	else if (heating == 0 && cooling == 0 && temperature <= 5'd18) begin // idle states
 		heating <= 1;
