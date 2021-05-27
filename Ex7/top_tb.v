@@ -70,14 +70,14 @@ initial begin
 	end
 	#(CLK_PERIOD)
 	rst = 0;
-	#(CLK_PERIOD) // button = 0 or button = 1 should make colour 000 go to colour 001
+	#(CLK_PERIOD*5) // button = 0 or button = 1 should make colour 000 go to colour 001
 
 	if (colour!=3'b001) begin
 		$display("***TEST FAILED - colour =%d, ***", colour);
 		err=1;
 	end
 		
-		
+	localrgb=rgb;	
 	if (rgb != localrgb) begin
 		$display("***TEST FAILED, localrgb=%d, real rgb=%d, colour=%d***", localrgb, rgb, colour);
 		err = 1;
