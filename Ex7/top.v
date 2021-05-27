@@ -14,4 +14,29 @@
 //           light [23:0]
 //////////////////////////////////////////////////////////////////////////////////
 
+`timescale 1ns / 100ps
 
+module selector (
+    //Todo: add ports 
+	input clk,
+	input sel,
+	input rst,
+	input button,
+	output [23:0] light
+
+    );
+                    
+    //Todo: add registers and wires, if needed
+	
+	wire enable;
+	wire colour;
+	wire [23:0] rgb;
+	wire [23:0] white;
+    //Todo: add user logic
+
+	assign white[23:0] = 24'hFFFFFF;
+	lights mylights(clk, rst, button, colour);
+	converter myconverter(clk, enable, colour, rgb);
+	mux mymux(white, rgb, sel, light);
+
+endmodule 
