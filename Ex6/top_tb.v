@@ -80,5 +80,11 @@ module top_tb(
 	   end
     end
 //Todo: Instantiate counter module
- 
+ converter top (
+	.colour (colour),
+     	.rgb (rgb),
+     	.clk (clk),
+     	.enable (enable)
+     	);
+
 endmodule 
