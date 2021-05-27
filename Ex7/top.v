@@ -28,7 +28,6 @@ module selector (
                     
     //Todo: add registers and wires, if needed
 	
-	wire enable;
 	wire colour;
 	wire [23:0] rgb;
 	wire [23:0] white;
@@ -36,7 +35,7 @@ module selector (
 
 	assign white[23:0] = 24'hFFFFFF;
 	lights mylights(clk, rst, button, colour);
-	converter myconverter(clk, enable, colour, rgb);
+	converter myconverter(clk, colour, !rst, rgb);
 	mux mymux(white, rgb, sel, light);
 
 endmodule 

@@ -21,8 +21,8 @@ module top_tb(
     reg rst;
     reg sel;
     reg button;
-    reg enable;
-    reg [23:0] locallight;
+   // reg enable;
+   // reg [23:0] locallight;
     reg [2:0] localcolour;
     reg [23:0] localrgb;
     wire [23:0] light;
@@ -54,7 +54,6 @@ initial begin
 		err = 0;
 		localcolour = 3'b000;
 		colour=0;
-		enable=0;
 		localrgb=rgb;
 		sel = 1;
 
@@ -88,7 +87,6 @@ initial begin
 		// button in lights (changes 3 bit colour every tick)
 forever begin
 	button = 1;
-	enable = 1;
 		if (colour != 6 && colour != 7) begin
 		localcolour = colour;
 		#(CLK_PERIOD)
@@ -108,7 +106,7 @@ forever begin
 
 	localrgb = rgb;
 	colour = colour+3'b001;	
-		if (enable == 1) begin
+		if (!rst == 1) begin
 			
 			if (sel) begin
 				if (light == rgb) begin // if no change, fail
@@ -138,11 +136,11 @@ end
     end
 //Todo: Instantiate counter module
  selector top (
+	.clk (clk),
+	.sel (sel),
 	.rst (rst),
-     	.light (light),
-     	.clk (clk),
-     	.button (button),
-     	.sel (sel)
+	.button (button),
+     	.light (light)
      	);
 
 endmodule 
