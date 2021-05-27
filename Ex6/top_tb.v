@@ -42,6 +42,7 @@ module top_tb(
 					err = 1;
 				end
 		
+
 		forever begin
 		enable = 1;
 		localrgb = rgb;
@@ -53,20 +54,13 @@ module top_tb(
 					err = 1;
 				end
 			end
-		#(CLK_PERIOD)	
-		enable = 0;
-		localrgb=rgb;
-		colour = colour+3'b010; // to ensure checking each colour, as +1 would form a loop (8 total outcomes)
-			if (enable == 0) begin
-				#(CLK_PERIOD*2) // changed colour should change rgb within 2 clock cycles
-				if (rgb == localrgb) begin // if change, fail (enable is off)
-					$display("***TEST FAILED, localrgb=%d, real rgb=%d, colour=%d, enable=%d***", localrgb, rgb, colour,enable);
-					err = 1;
-				end
-			end
+		
+				
+			
 		end
 	end
 
+// also checked through validating waveform numbers against initial vector
 
 //Todo: Finish test, check for success
     initial begin
