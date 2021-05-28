@@ -16,7 +16,7 @@
 
 `timescale 1ns / 100ps
 
-module monitor (
+module aircon (
     //Todo: add ports 
 	input clk,
 	input [4:0] temperature,

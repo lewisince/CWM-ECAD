@@ -16,7 +16,9 @@ module top_tb(
     parameter CLK_PERIOD = 10;
 
 //Registers and wires
-    reg clk;
+    reg clk_p;
+    wire clk_n;
+    reg rst_n;
     reg [4:0] temperature;
     reg err;
     reg deltatemp;
@@ -26,9 +28,9 @@ module top_tb(
 
 //Clock generation
     initial begin
-       clk = 1'b0;
+       clk_p = 1'b0;
        forever
-         #(CLK_PERIOD/2) clk=~clk;
+         #(CLK_PERIOD/2) clk_p=~clk_p;
      end
 
 //Todo: User logic
@@ -86,11 +88,12 @@ end
 
 
 //Todo: Instantiate monitor module
-  	monitor top (
-	.temperature (temperature),
-     	.heating (heating),
-     	.clk (clk),
-     	.cooling (cooling)
-     	);
-
+  	top top (
+	.clk_p(clk_p),
+ 	.clk_n(clk_n),
+	.rst_n(rst),
+	.temperature(temperature),
+    	.heating(heating),
+    	.cooling(cooling)
+ 	);
 endmodule 

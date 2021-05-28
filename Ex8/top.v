@@ -18,7 +18,7 @@ module top(
     input clk_n,
      //Todo: add all other ports besides clk_n and clk_p 
     input rst_n,
-    input temperature [4:0],
+    input [4:0] temperature,
     output heating,
     output cooling
    );
@@ -42,11 +42,6 @@ module top(
 
 //Add logic here
 
-	ac monitor(
-		.clk(clk),
-		.temperature(temperature),
-		.heating(heating),
-		.cooling(cooling)
-		);
+	aircon myaircon(clk,temperature,heating,cooling);
 
 endmodule
