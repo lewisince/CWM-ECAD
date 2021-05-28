@@ -35,6 +35,8 @@ module top_tb(
 
 //Todo: User logic
 
+    assign clk_n=~clk_p; // clock negative == negative clock positive
+
 
 initial begin
 // initialise values
@@ -44,6 +46,7 @@ initial begin
 		//temperature = 5'b10000; //start at T=16
 		//tested 3 cases
 		deltatemp = 1;
+		rst_n = 0;
 		
 //test logic
 forever begin
@@ -91,7 +94,7 @@ end
   	top top (
 	.clk_p(clk_p),
  	.clk_n(clk_n),
-	.rst_n(rst),
+	.rst_n(rst_n),
 	.temperature_0(temperature[0]),
 	.temperature_1(temperature[1]),
 	.temperature_2(temperature[2]),
