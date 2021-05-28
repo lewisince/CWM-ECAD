@@ -16,7 +16,6 @@ module top_tb(
 
 //Registers and wires
     reg clk;
-    reg [2:0] colour;
     reg err;
     reg rst;
     reg sel;
@@ -25,9 +24,11 @@ module top_tb(
    // reg [23:0] locallight;
     reg [2:0] localcolour;
     reg [23:0] localrgb;
-    wire [23:0] light;
-    reg [23:0] rgb;
     reg [23:0] white;
+    wire [23:0] light;
+    wire [23:0] rgb;
+    wire [2:0] colour;
+
 
 //Clock generation
     initial begin
@@ -53,9 +54,9 @@ initial begin
 		button = 0;
 		err = 0;
 		localcolour = 3'b000;
-		colour=0;
 		localrgb=rgb;
-		sel = 1;
+		sel = 0;
+		white[23:0] = 24'hFFFFFF;
 
 
 
@@ -86,6 +87,7 @@ initial begin
 
 		// button in lights (changes 3 bit colour every tick)
 forever begin
+	sel = 1;
 	button = 1;
 		if (colour != 6 && colour != 7) begin
 		localcolour = colour;
@@ -96,7 +98,7 @@ forever begin
 			end
 		end
 		else if (colour == 6) begin
-		localcolour = colour;
+		// localcolour = colour;
 		#(CLK_PERIOD)
 			if (colour != 3'b001) begin
 				$display("***TEST FAILED - rst==0, button==1,colour =%d, ***", colour);
@@ -105,7 +107,7 @@ forever begin
 		end
 
 	localrgb = rgb;
-	colour = colour+3'b001;	
+	//colour = colour+3'b001;	
 		if (!rst == 1) begin
 			
 			if (sel) begin

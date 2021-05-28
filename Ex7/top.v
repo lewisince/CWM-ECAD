@@ -28,7 +28,7 @@ module selector (
                     
     //Todo: add registers and wires, if needed
 	
-	wire colour;
+	wire [2:0] colour;
 	wire [23:0] rgb;
 	wire [23:0] white;
     //Todo: add user logic
