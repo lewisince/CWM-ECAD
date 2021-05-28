@@ -1,0 +1,25 @@
+Here is a screenshot of the final Ex8.xpr file Design Runs tab.
+
+
+https://imgur.com/a/g4s8OUb
+
+#################################
+
+Understanding the results: 
+
+
+1) There were no critical errors in the final run of the synthesis. 
+
+2) Worst case of hold time in the design was 0.048ns.
+
+3) Worst case of setup time was 9.29ns.
+
+4) There were 4 LUT used by the design.
+
+5) There were 2 FF used by the design.
+
+6) There was no block RAM used by the design, as there was no requirement for memory (e.g. initialisation vector) in this design for the temperature implementation.
+
+7) The expected total power consumption was 2.474W, but less than 1% of this power was Dynamic (from Clocks, Signals, Logic or I/O implementation).
+
+8) To synthesise the system, it took 3m47s, but to explore all fully routed nets, implementing for optimization, it took 13m58s.  
