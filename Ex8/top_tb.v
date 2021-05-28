@@ -92,7 +92,11 @@ end
 	.clk_p(clk_p),
  	.clk_n(clk_n),
 	.rst_n(rst),
-	.temperature(temperature),
+	.temperature_0(temperature[0]),
+	.temperature_1(temperature[1]),
+	.temperature_2(temperature[2]),
+	.temperature_3(temperature[3]),
+	.temperature_4(temperature[4]),
     	.heating(heating),
     	.cooling(cooling)
  	);
