@@ -83,7 +83,8 @@ initial begin
 		err = 1;
 	end
 		
-
+sel = 1;
+#(CLK_PERIOD) // to ensure select works seperately to
 
 		// button in lights (changes 3 bit colour every tick)
 forever begin
